@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Summer.System.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +15,17 @@ namespace FtpClient
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FtpClientForm());
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                FtpClientForm ftpClientForm = SpringHelper.GetObject<FtpClientForm>("ftpClientForm");
+                //Application.Run(new FtpClientForm());
+                Application.Run(ftpClientForm);
+            }
+            catch (Exception ee)
+            {
+            }
         }
     }
 }
