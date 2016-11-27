@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FtpClientForm));
             this.groupBox = new System.Windows.Forms.GroupBox();
+            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.txtBoxPassword = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtBoxUserId = new System.Windows.Forms.TextBox();
@@ -41,23 +42,28 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripLabelTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripLabelSpeed = new System.Windows.Forms.ToolStripStatusLabel();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBoxLocalFolder = new System.Windows.Forms.TextBox();
-            this.btnBrowse = new System.Windows.Forms.Button();
+            this.textBoxLocalFile = new System.Windows.Forms.TextBox();
+            this.btnFileBrowse = new System.Windows.Forms.Button();
             this.listViewData = new System.Windows.Forms.ListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnUpLoad = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label_mess = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.ftpCtl1 = new DotNetRemoting.FTPClientCtl();
             this.groupBox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox
             // 
+            this.groupBox.Controls.Add(this.ftpCtl1);
             this.groupBox.Controls.Add(this.txtBoxPassword);
             this.groupBox.Controls.Add(this.label4);
             this.groupBox.Controls.Add(this.txtBoxUserId);
@@ -72,6 +78,11 @@
             this.groupBox.TabIndex = 0;
             this.groupBox.TabStop = false;
             this.groupBox.Text = "Server";
+            // 
+            // toolStripProgressBar
+            // 
+            this.toolStripProgressBar.Name = "toolStripProgressBar";
+            this.toolStripProgressBar.Size = new System.Drawing.Size(150, 16);
             // 
             // txtBoxPassword
             // 
@@ -167,11 +178,6 @@
             this.toolStripLabelStatus.Size = new System.Drawing.Size(44, 17);
             this.toolStripLabelStatus.Text = "Ready";
             // 
-            // toolStripProgressBar
-            // 
-            this.toolStripProgressBar.Name = "toolStripProgressBar";
-            this.toolStripProgressBar.Size = new System.Drawing.Size(150, 16);
-            // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -205,28 +211,29 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 142);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 12);
+            this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 2;
-            this.label5.Text = "Local Folder";
+            this.label5.Text = "Local File";
             // 
-            // textBoxLocalFolder
+            // textBoxLocalFile
             // 
-            this.textBoxLocalFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxLocalFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLocalFolder.Location = new System.Drawing.Point(89, 139);
-            this.textBoxLocalFolder.Name = "textBoxLocalFolder";
-            this.textBoxLocalFolder.Size = new System.Drawing.Size(383, 21);
-            this.textBoxLocalFolder.TabIndex = 3;
+            this.textBoxLocalFile.Location = new System.Drawing.Point(89, 139);
+            this.textBoxLocalFile.Name = "textBoxLocalFile";
+            this.textBoxLocalFile.Size = new System.Drawing.Size(383, 21);
+            this.textBoxLocalFile.TabIndex = 3;
             // 
-            // btnBrowse
+            // btnFileBrowse
             // 
-            this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowse.Location = new System.Drawing.Point(478, 137);
-            this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.Size = new System.Drawing.Size(45, 23);
-            this.btnBrowse.TabIndex = 4;
-            this.btnBrowse.Text = "...";
-            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnFileBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFileBrowse.Location = new System.Drawing.Point(478, 137);
+            this.btnFileBrowse.Name = "btnFileBrowse";
+            this.btnFileBrowse.Size = new System.Drawing.Size(45, 23);
+            this.btnFileBrowse.TabIndex = 4;
+            this.btnFileBrowse.Text = "...";
+            this.btnFileBrowse.UseVisualStyleBackColor = true;
+            this.btnFileBrowse.Click += new System.EventHandler(this.btnFileBrowse_Click);
             // 
             // listViewData
             // 
@@ -241,7 +248,7 @@
             this.listViewData.GridLines = true;
             this.listViewData.Location = new System.Drawing.Point(0, 166);
             this.listViewData.Name = "listViewData";
-            this.listViewData.Size = new System.Drawing.Size(536, 300);
+            this.listViewData.Size = new System.Drawing.Size(536, 233);
             this.listViewData.TabIndex = 5;
             this.listViewData.UseCompatibleStateImageBehavior = false;
             this.listViewData.View = System.Windows.Forms.View.Details;
@@ -256,14 +263,73 @@
             this.columnHeaderSize.Text = "Size";
             this.columnHeaderSize.Width = 100;
             // 
+            // btnUpLoad
+            // 
+            this.btnUpLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnUpLoad.Location = new System.Drawing.Point(20, 405);
+            this.btnUpLoad.Name = "btnUpLoad";
+            this.btnUpLoad.Size = new System.Drawing.Size(75, 23);
+            this.btnUpLoad.TabIndex = 6;
+            this.btnUpLoad.Text = "UpLoad";
+            this.btnUpLoad.UseVisualStyleBackColor = true;
+            this.btnUpLoad.Click += new System.EventHandler(this.btnUpLoad_Click);
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Sienna;
+            this.label6.Location = new System.Drawing.Point(21, 438);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(63, 14);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Message:";
+            // 
+            // label_mess
+            // 
+            this.label_mess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label_mess.AutoSize = true;
+            this.label_mess.Location = new System.Drawing.Point(90, 440);
+            this.label_mess.Name = "label_mess";
+            this.label_mess.Size = new System.Drawing.Size(35, 12);
+            this.label_mess.TabIndex = 8;
+            this.label_mess.Text = "ready";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
+            // ftpCtl1
+            // 
+            this.ftpCtl1.BackColor = System.Drawing.Color.Orange;
+            this.ftpCtl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ftpCtl1.ControlPort = 21;
+            this.ftpCtl1.FtpToolStripProgressBar = this.toolStripProgressBar;
+            this.ftpCtl1.Location = new System.Drawing.Point(318, 48);
+            this.ftpCtl1.Name = "ftpCtl1";
+            this.ftpCtl1.ProgrBar = null;
+            this.ftpCtl1.ProgressLabel = null;
+            this.ftpCtl1.RemoteHost = null;
+            this.ftpCtl1.Size = new System.Drawing.Size(105, 16);
+            this.ftpCtl1.TabIndex = 9;
+            this.ftpCtl1.Timeout = 120000;
+            this.ftpCtl1.TimeOut = 20000;
+            this.ftpCtl1.Visible = false;
+            this.ftpCtl1.StatusUpdateEvent += new DotNetRemoting.UpdateDelegate(this.ftpCtl1_StatusUpdateEvent);
+            // 
             // FtpClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 482);
+            this.Controls.Add(this.label_mess);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.btnUpLoad);
             this.Controls.Add(this.listViewData);
-            this.Controls.Add(this.btnBrowse);
-            this.Controls.Add(this.textBoxLocalFolder);
+            this.Controls.Add(this.btnFileBrowse);
+            this.Controls.Add(this.textBoxLocalFile);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox);
@@ -272,6 +338,7 @@
             this.Name = "FtpClientForm";
             this.Text = "FtpClientForm";
             this.Load += new System.EventHandler(this.FtpClientForm_Load);
+            this.FormClosing += FtpClientForm_FormClosing;
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -301,11 +368,16 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripStatusLabel toolStripLabelSpeed;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxLocalFolder;
-        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.TextBox textBoxLocalFile;
+        private System.Windows.Forms.Button btnFileBrowse;
         private System.Windows.Forms.ListView listViewData;
         private System.Windows.Forms.ColumnHeader columnHeaderName;
         private System.Windows.Forms.ColumnHeader columnHeaderSize;
+        private System.Windows.Forms.Button btnUpLoad;
+        private DotNetRemoting.FTPClientCtl ftpCtl1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label_mess;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
 

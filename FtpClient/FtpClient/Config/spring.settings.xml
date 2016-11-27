@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--复制此文档各种Ioc定义方式到需要的地方-->
+<objects xmlns="http://www.springframework.net">
+  
+  <object name="_ftpSettings" type="FtpClient.FtpSettings, FtpClient">
+    <property name="ServerIP" value="183.131.244.174"/>
+    <property name="LocalFolder" value=""/>
+    <property name="Port" value="21"/>
+    <property name="Binary" value="true"/>
+    <property name="Passive" value="false"/>
+    <property name="UserID" value="ftpUser1"/>
+    <property name="Password" value="Password1"/>
+    <property name="LocalFile" value=""/>
+  </object>
+  
+</objects>

@@ -3,6 +3,7 @@
 <objects xmlns="http://www.springframework.net">
   
   <object name="ftpClientForm" type="FtpClient.FtpClientForm, FtpClient">
+    <property name="_ftpSettings" ref="_ftpSettings"/>
   </object>
   
 </objects>

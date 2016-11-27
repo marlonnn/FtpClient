@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FtpClient
 {
@@ -11,7 +7,7 @@ namespace FtpClient
     {
         public string ServerIP;
         public string LocalFolder;
-        public int Port = 21;
+        public int Port;
         public bool Binary = true;
         public bool Passive;
         public string UserID;
