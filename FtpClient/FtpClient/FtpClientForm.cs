@@ -9,6 +9,7 @@ namespace FtpClient
     public partial class FtpClientForm : GenericSaveForm.GenericSavForm
     {
         private FtpSettings _ftpSettings;
+        private WatchDogForm _watchDogForm;
         public FtpClientForm()
         {
             InitializeComponent();
@@ -19,6 +20,7 @@ namespace FtpClient
             //ApplySettings();
             //_ftpSettings = (FtpSettings)GetSettingsObject(typeof(FtpSettings));
             ApplySettings();
+            this.Focus();
         }
 
         private void FtpClientForm_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
@@ -120,6 +122,16 @@ namespace FtpClient
             {
                 btnUpLoad.Text = "UpLoad";
                 //button_dnld.Text = "Download";
+            }
+        }
+
+        private void FtpClientForm_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.Modifiers == System.Windows.Forms.Keys.Control &&
+                e.KeyCode == System.Windows.Forms.Keys.W)
+            {
+                _watchDogForm.Location = this.Location;
+                _watchDogForm.ShowDialog();
             }
         }
     }
