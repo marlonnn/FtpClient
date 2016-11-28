@@ -19,6 +19,7 @@ namespace FtpClient
         public FtpClientForm()
         {
             InitializeComponent();
+            this.listViewData.Timer = this.timer;
         }
 
         private void FtpClientForm_Load(object sender, EventArgs e)
@@ -105,6 +106,14 @@ namespace FtpClient
             }
         }
 
+
+        private void Upload(string fileFullName)
+        {
+            SetCredentials();
+            string RemoteFile = Path.GetFileName(fileFullName);
+            ftpCtl1.Put(textBoxLocalFile.Text, RemoteFile);
+        }
+
         private void btnFileBrowse_Click(object sender, EventArgs e)
         {
             openFileDialog1.FileName = _ftpSettings.LocalFile;
@@ -123,9 +132,10 @@ namespace FtpClient
             label_mess.Text = Message;
             toolStripLabelTime.Text = BaseDownloader.TimeSpanToString(EstimatedTimeLeft);
             toolStripLabelSpeed.Text = Speed.ToString("F1") + " Kb/s";
-
             if (Status == DStatus.complete || Status == DStatus.error)
             {
+                if (Status == DStatus.complete)
+                    listViewData.AppendLog(new string[] { "test", "success" });
                 btnUpLoad.Text = "UpLoad";
                 //button_dnld.Text = "Download";
             }
@@ -137,7 +147,7 @@ namespace FtpClient
                 e.KeyCode == System.Windows.Forms.Keys.W)
             {
                 _watchDogForm.Location = this.Location;
-                _watchDogForm.Show();
+                _watchDogForm.ShowDialog();
             }
         }
 
@@ -149,7 +159,7 @@ namespace FtpClient
                 List<OriginalImage> images = _uploadImageQueue.PopAll();
                 foreach (var image in images)
                 {
-
+                    listViewData.AppendLog(new string[] { image.FileName,"uploading..."});
                 }
             }
         }

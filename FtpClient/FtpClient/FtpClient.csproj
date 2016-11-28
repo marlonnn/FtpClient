@@ -85,6 +85,9 @@
       <DependentUpon>FtpClientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FtpSettings.cs" />
+    <Compile Include="LogListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queue\UploadImageQueue.cs" />
@@ -149,6 +152,9 @@
     <Content Include="Library\Spring.Core.dll" />
     <Content Include="Library\Spring.Data.dll" />
     <Content Include="Library\Summer.System.dll" />
+    <Content Include="TestFolder\readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FtpLib\FtpLib.csproj">

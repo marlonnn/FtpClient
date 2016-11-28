@@ -184,12 +184,12 @@ namespace FtpClient
 
         private void WatchDogForm_Load(object sender, EventArgs e)
         {
-            _settings = (WatchDogSettings)GetSettingsObject(typeof(WatchDogSettings));
+            //_settings = (WatchDogSettings)GetSettingsObject(typeof(WatchDogSettings));
         }
 
         private void WatchDogForm_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
-            SaveSettings();
+            //SaveSettings();
         }
 
         private void ApplySettings()
