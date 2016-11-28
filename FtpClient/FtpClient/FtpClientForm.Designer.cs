@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FtpClientForm));
             this.groupBox = new System.Windows.Forms.GroupBox();
             this.ftpCtl1 = new DotNetRemoting.FTPClientCtl();
@@ -57,6 +58,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label_mess = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.groupBox.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -319,6 +321,12 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
             // FtpClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -380,6 +388,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label_mess;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Timer timer;
     }
 }
 

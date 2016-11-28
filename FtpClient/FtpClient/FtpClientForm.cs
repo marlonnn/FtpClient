@@ -1,6 +1,9 @@
 ﻿using DotNetRemoting;
 using EnterpriseDT.Net.Ftp;
+using FtpClient.Binary;
+using FtpClient.Queue;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 
@@ -10,6 +13,9 @@ namespace FtpClient
     {
         private FtpSettings _ftpSettings;
         private WatchDogForm _watchDogForm;
+
+        private UploadImageQueue _uploadImageQueue;
+
         public FtpClientForm()
         {
             InitializeComponent();
@@ -131,7 +137,20 @@ namespace FtpClient
                 e.KeyCode == System.Windows.Forms.Keys.W)
             {
                 _watchDogForm.Location = this.Location;
-                _watchDogForm.ShowDialog();
+                _watchDogForm.Show();
+            }
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (_uploadImageQueue != null && _uploadImageQueue.GetCount() > 0)
+            {
+                //pop all and upload
+                List<OriginalImage> images = _uploadImageQueue.PopAll();
+                foreach (var image in images)
+                {
+
+                }
             }
         }
     }

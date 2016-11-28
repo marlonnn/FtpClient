@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FtpClient.Binary;
+using FtpClient.Queue;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,12 +13,14 @@ using System.Windows.Forms;
 
 namespace FtpClient
 {
-    public partial class WatchDogForm : Form
+    public partial class WatchDogForm : GenericSaveForm.GenericSavForm
     {
         private StringBuilder _stringBuilder;
         private bool _bDirty;
         private System.IO.FileSystemWatcher _Watcher;
         private bool _bIsWatching;
+        private UploadImageQueue _uploadImageQueue;
+        private WatchDogSettings _settings;
 
         public WatchDogForm()
         {
@@ -81,6 +85,15 @@ namespace FtpClient
                 _stringBuilder.Append("    ");
                 _stringBuilder.Append(DateTime.Now.ToString());
                 _bDirty = true;
+                if (e.ChangeType == WatcherChangeTypes.Created)
+                {
+                    
+                    OriginalImage originalImage = new OriginalImage(new DateTime(), e.Name, e.FullPath);
+                    if (_uploadImageQueue != null)
+                    {
+                        _uploadImageQueue.Push(originalImage);
+                    }
+                }
             }
         }
 
@@ -168,5 +181,29 @@ namespace FtpClient
                 chkSubFolder.Enabled = true;
             }
         }
+
+        private void WatchDogForm_Load(object sender, EventArgs e)
+        {
+            _settings = (WatchDogSettings)GetSettingsObject(typeof(WatchDogSettings));
+        }
+
+        private void WatchDogForm_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
+        {
+            SaveSettings();
+        }
+
+        private void ApplySettings()
+        {
+
+        }
+
+        private void SaveSettings()
+        {
+            _settings.FileMode = this.rdbFile.Checked ? true : false;
+            _settings.DirectoryMode = this.rdbDir.Checked ? true : false;
+            _settings.IncludeSubFolders = this.chkSubFolder.Checked ? true : false;
+            _settings.FileFullName = this.txtFile.Text;
+        }
+
     }
 }

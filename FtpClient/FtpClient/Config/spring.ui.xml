@@ -5,8 +5,10 @@
   <object name="ftpClientForm" type="FtpClient.FtpClientForm, FtpClient">
     <property name="_ftpSettings" ref="_ftpSettings"/>
     <property name="_watchDogForm" ref="_watchDogForm"/>
+    <property name="_uploadImageQueue" ref="_uploadImageQueue"/>
   </object>
 
   <object name="_watchDogForm" type="FtpClient.WatchDogForm, FtpClient">
+    <property name="_uploadImageQueue" ref="_uploadImageQueue"/>
   </object>
 </objects>

@@ -196,6 +196,8 @@
             this.MaximizeBox = false;
             this.Name = "WatchDogForm";
             this.Text = "WatchDogForm";
+            this.Load += new System.EventHandler(this.WatchDogForm_Load);
+            this.FormClosing += WatchDogForm_FormClosing;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

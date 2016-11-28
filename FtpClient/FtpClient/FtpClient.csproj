@@ -76,6 +76,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binary\Original.cs" />
+    <Compile Include="Binary\OriginalImage.cs" />
     <Compile Include="FtpClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,12 +87,14 @@
     <Compile Include="FtpSettings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queue\UploadImageQueue.cs" />
     <Compile Include="WatchDogForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WatchDogForm.Designer.cs">
       <DependentUpon>WatchDogForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WatchDogSettings.cs" />
     <EmbeddedResource Include="FtpClientForm.resx">
       <DependentUpon>FtpClientForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -125,6 +129,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\spring.settings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Config\spring.queue.xml">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Config\spring.ui.xml">
