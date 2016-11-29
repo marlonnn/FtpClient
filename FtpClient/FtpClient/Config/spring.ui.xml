@@ -11,4 +11,8 @@
   <object name="_watchDogForm" type="FtpClient.WatchDogForm, FtpClient">
     <property name="_uploadImageQueue" ref="_uploadImageQueue"/>
   </object>
+
+  <object name="loginForm" type="FtpClient.Login, FtpClient">
+    <property name="_ftpSettings" ref="_ftpSettings"/>
+  </object>
 </objects>

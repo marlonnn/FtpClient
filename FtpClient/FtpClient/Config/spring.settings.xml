@@ -3,12 +3,13 @@
 <objects xmlns="http://www.springframework.net">
   
   <object name="_ftpSettings" type="FtpClient.FtpSettings, FtpClient">
-    <property name="ServerIP" value="183.131.244.174"/>
+    <!--<property name="ServerIP" value="183.131.244.174"/>-->
+    <property name="ServerIP" value="127.0.0.1"/>
     <property name="LocalFolder" value=""/>
     <property name="Port" value="21"/>
     <property name="Binary" value="true"/>
     <property name="Passive" value="false"/>
-    <property name="UserID" value="ftpUser1"/>
+    <property name="UserID" value="ftpUser"/>
     <property name="Password" value="Password1"/>
     <property name="LocalFile" value=""/>
   </object>
