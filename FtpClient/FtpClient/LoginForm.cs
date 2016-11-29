@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DotNetRemoting;
+using EnterpriseDT.Net.Ftp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,9 +19,17 @@ namespace FtpClient
         private Session _ftpSession;
 
         public Session Session { get { return this._ftpSession; } }
+
+        public FTPClientCtl _ftpClientCtrl;
         public Login()
         {
             InitializeComponent();
+        }
+
+        public Login(FTPClientCtl FTPClientCtrl)
+        {
+            InitializeComponent();
+            this._ftpClientCtrl = FTPClientCtrl;
         }
 
         private void ApplySettings()
@@ -36,13 +46,34 @@ namespace FtpClient
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            if (CreateFtpSession())
+            if (CreateFtpConection())
             {
                 this.DialogResult = DialogResult.OK;
             }
             else
             {
                 this.DialogResult = DialogResult.Cancel;
+            }
+        }
+
+        private bool CreateFtpConection()
+        {
+            try
+            {
+                _ftpClientCtrl.RemoteHost = txtBoxServerIp.Text;
+                int Port = int.Parse(txtBoxPort.Text);
+                _ftpClientCtrl.ControlPort = Port;
+                _ftpClientCtrl.Connect();
+                if (_ftpClientCtrl.IsConnected)
+                {
+                    _ftpClientCtrl.Login(txtBoxUserId.Text, txtBoxPassword.Text);
+                    _ftpClientCtrl.SetTransferType(FTPTransferType.BINARY);
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
             }
         }
 
@@ -74,7 +105,7 @@ namespace FtpClient
 
         private void Login_Load(object sender, EventArgs e)
         {
-            ApplySettings();
+            //ApplySettings();
         }
     }
 }

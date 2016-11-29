@@ -17,18 +17,21 @@ namespace FtpClient
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 //FtpClientForm ftpClientForm = SpringHelper.GetObject<FtpClientForm>("ftpClientForm");
-                Login login = SpringHelper.GetObject<Login>("loginForm");
-                if (login.ShowDialog() == DialogResult.OK)
-                {
-                    login.Dispose();
-                    RichFtpClient ftpClient = new RichFtpClient(login.Session);
-                    Application.Run(ftpClient);
-                }
-                else
-                {
-                    login.Dispose();
-                }
+                //Application.Run(ftpClientForm);
+                //Login login = SpringHelper.GetObject<Login>("loginForm");
+                //if (login.ShowDialog() == DialogResult.OK)
+                //{
+                //    login.Dispose();
+                //    RichFtpClient ftpClient = new RichFtpClient(login.FTPClientCtrl);
+                //    Application.Run(ftpClient);
+                //}
+                //else
+                //{
+                //    login.Dispose();
+                //}
 
+                RichFtpClient ftpClient = new RichFtpClient();
+                Application.Run(ftpClient);
             }
             catch (Exception ee)
             {

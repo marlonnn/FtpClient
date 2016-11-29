@@ -51,7 +51,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxLocalFile = new System.Windows.Forms.TextBox();
             this.btnFileBrowse = new System.Windows.Forms.Button();
-            this.listViewData = new LogListView();
+            this.listViewData = new FtpClient.LogListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnUpLoad = new System.Windows.Forms.Button();

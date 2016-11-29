@@ -44,10 +44,26 @@
             this.dlgOpenFile = new System.Windows.Forms.OpenFileDialog();
             this.dlgOpenDir = new System.Windows.Forms.FolderBrowserDialog();
             this.dlgSaveFile = new System.Windows.Forms.SaveFileDialog();
-            this.listViewData = new LogListView();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripLabelStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripLabelTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripLabelSpeed = new System.Windows.Forms.ToolStripStatusLabel();
+            this.label_mess = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.listViewData = new FtpClient.LogListView();
             this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ftpCtl1 = new DotNetRemoting.FTPClientCtl();
             this.groupBox1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -180,6 +196,97 @@
             this.dlgSaveFile.DefaultExt = "log";
             this.dlgSaveFile.Filter = "LogFiles|*.log";
             // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripLabelStatus,
+            this.toolStripProgressBar,
+            this.toolStripStatusLabel2,
+            this.toolStripLabelTime,
+            this.toolStripLabel3,
+            this.toolStripLabelSpeed});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 542);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(491, 23);
+            this.statusStrip1.TabIndex = 27;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(52, 18);
+            this.toolStripStatusLabel1.Text = "Status:";
+            // 
+            // toolStripLabelStatus
+            // 
+            this.toolStripLabelStatus.ForeColor = System.Drawing.Color.Blue;
+            this.toolStripLabelStatus.Name = "toolStripLabelStatus";
+            this.toolStripLabelStatus.Size = new System.Drawing.Size(39, 18);
+            this.toolStripLabelStatus.Text = "Ready";
+            // 
+            // toolStripProgressBar
+            // 
+            this.toolStripProgressBar.Name = "toolStripProgressBar";
+            this.toolStripProgressBar.Size = new System.Drawing.Size(150, 17);
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(64, 18);
+            this.toolStripStatusLabel2.Text = "Time Left";
+            // 
+            // toolStripLabelTime
+            // 
+            this.toolStripLabelTime.ForeColor = System.Drawing.Color.Blue;
+            this.toolStripLabelTime.Name = "toolStripLabelTime";
+            this.toolStripLabelTime.Size = new System.Drawing.Size(49, 18);
+            this.toolStripLabelTime.Text = "00:00:00";
+            // 
+            // toolStripLabel3
+            // 
+            this.toolStripLabel3.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripLabel3.Name = "toolStripLabel3";
+            this.toolStripLabel3.Size = new System.Drawing.Size(49, 18);
+            this.toolStripLabel3.Text = "Speed:";
+            // 
+            // toolStripLabelSpeed
+            // 
+            this.toolStripLabelSpeed.ForeColor = System.Drawing.Color.Blue;
+            this.toolStripLabelSpeed.Name = "toolStripLabelSpeed";
+            this.toolStripLabelSpeed.Size = new System.Drawing.Size(13, 18);
+            this.toolStripLabelSpeed.Text = "0";
+            // 
+            // label_mess
+            // 
+            this.label_mess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label_mess.AutoSize = true;
+            this.label_mess.Location = new System.Drawing.Point(74, 521);
+            this.label_mess.Name = "label_mess";
+            this.label_mess.Size = new System.Drawing.Size(33, 13);
+            this.label_mess.TabIndex = 29;
+            this.label_mess.Text = "ready";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Sienna;
+            this.label6.Location = new System.Drawing.Point(5, 519);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(63, 14);
+            this.label6.TabIndex = 28;
+            this.label6.Text = "Message:";
+            // 
             // listViewData
             // 
             this.listViewData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -198,7 +305,7 @@
             this.listViewData.MultiSelect = false;
             this.listViewData.Name = "listViewData";
             this.listViewData.ShowGroups = false;
-            this.listViewData.Size = new System.Drawing.Size(461, 252);
+            this.listViewData.Size = new System.Drawing.Size(461, 212);
             this.listViewData.TabIndex = 26;
             this.listViewData.Timer = null;
             this.listViewData.UseCompatibleStateImageBehavior = false;
@@ -214,11 +321,52 @@
             this.columnHeaderStatus.Text = "Status";
             this.columnHeaderStatus.Width = 100;
             // 
-            // FtpClient
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(491, 24);
+            this.menuStrip1.TabIndex = 30;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.openToolStripMenuItem.Text = "Login";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // ftpCtl1
+            // 
+            this.ftpCtl1.BackColor = System.Drawing.Color.Orange;
+            this.ftpCtl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ftpCtl1.ControlPort = 21;
+            this.ftpCtl1.FtpToolStripProgressBar = this.toolStripProgressBar;
+            this.ftpCtl1.FtpToolStripProgressBar = this.toolStripProgressBar;
+            this.ftpCtl1.Location = new System.Drawing.Point(352, 40);
+            this.ftpCtl1.Name = "ftpCtl1";
+            this.ftpCtl1.ProgrBar = null;
+            this.ftpCtl1.ProgressLabel = null;
+            this.ftpCtl1.RemoteHost = null;
+            this.ftpCtl1.Size = new System.Drawing.Size(105, 17);
+            this.ftpCtl1.TabIndex = 31;
+            this.ftpCtl1.Timeout = 120000;
+            this.ftpCtl1.TimeOut = 20000;
+            this.ftpCtl1.Visible = false;
+            this.ftpCtl1.StatusUpdateEvent += new DotNetRemoting.UpdateDelegate(this.FtpClientCtrl_StatusUpdateEvent);
+            // 
+            // RichFtpClient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(491, 565);
+            this.Controls.Add(this.ftpCtl1);
+            this.Controls.Add(this.label_mess);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.listViewData);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lstNotification);
@@ -228,11 +376,16 @@
             this.Controls.Add(this.btnBrowseFile);
             this.Controls.Add(this.btnLog);
             this.Controls.Add(this.groupBox1);
-            this.Name = "FtpClient";
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "RichFtpClient";
             this.Text = "FtpClient";
             this.Load += new System.EventHandler(this.FtpClient_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -258,5 +411,19 @@
         private FtpClient.LogListView listViewData;
         private System.Windows.Forms.ColumnHeader columnHeaderName;
         private System.Windows.Forms.ColumnHeader columnHeaderStatus;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripLabelStatus;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripLabelTime;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripLabelSpeed;
+        private System.Windows.Forms.Label label_mess;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private DotNetRemoting.FTPClientCtl ftpCtl1;
     }
 }

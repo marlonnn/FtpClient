@@ -28,6 +28,7 @@ namespace DotNetRemoting
         protected void UpdateStatusEventHandler(string Message, DStatus Status, long FullSize, long CurrentBytes, TimeSpan EstimatedTimeLeft, double Speed)
         {
             Invoke(new UpdateDelegate(UpdateLocal), new object[] { Message, Status, FullSize, CurrentBytes, EstimatedTimeLeft, Speed });
+
         }
 
         public ProgressBar ProgrBar
