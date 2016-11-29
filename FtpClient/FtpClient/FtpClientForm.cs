@@ -111,7 +111,7 @@ namespace FtpClient
         {
             SetCredentials();
             string RemoteFile = Path.GetFileName(fileFullName);
-            ftpCtl1.Put(textBoxLocalFile.Text, RemoteFile);
+            ftpCtl1.Put(fileFullName, RemoteFile);
         }
 
         private void btnFileBrowse_Click(object sender, EventArgs e)
@@ -160,6 +160,7 @@ namespace FtpClient
                 foreach (var image in images)
                 {
                     listViewData.AppendLog(new string[] { image.FileName,"uploading..."});
+                    Upload(image.FilePath);
                 }
             }
         }

@@ -17,20 +17,18 @@ namespace FtpClient
 {
     public partial class RichFtpClient : Form
     {
-        private Session _session;
-        //private FTPClientCtl _ftpClientCtrl;
-
         private StringBuilder _stringBuilder;
         private bool _bDirty;
         private System.IO.FileSystemWatcher _Watcher;
         private bool _bIsWatching;
 
-        //private List<OriginalImage> _OriginalImages;
         private UploadImageQueue _OriginalImages;
 
         private bool _isUpLoading;
 
         private Login login;
+
+        private OriginalImage _image;
 
         public RichFtpClient()
         {
@@ -38,36 +36,8 @@ namespace FtpClient
             _stringBuilder = new StringBuilder();
             _bDirty = false;
             _bIsWatching = false;
-            //_OriginalImages = new List<OriginalImage>();
             _OriginalImages = new UploadImageQueue();
-        }
-
-        public RichFtpClient(Session session)
-        {
-            InitializeComponent();
-            this._session = session;
-            _stringBuilder = new StringBuilder();
-            _bDirty = false;
-            _bIsWatching = false;
-            //_OriginalImages = new List<OriginalImage>();
-            _OriginalImages = new UploadImageQueue();
-        }
-
-        public RichFtpClient(FTPClientCtl ftpClientCtrl)
-        {
-            InitializeComponent();
-            //this._ftpClientCtrl = ftpClientCtrl;
-            //if (this._ftpClientCtrl != null)
-            //{
-            //    this._ftpClientCtrl.FtpToolStripProgressBar = this.toolStripProgressBar;
-            //    this._ftpClientCtrl.StatusUpdateEvent += FtpClientCtrl_StatusUpdateEvent;
-            //}
-
-            _stringBuilder = new StringBuilder();
-            _bDirty = false;
-            _bIsWatching = false;
-            //_OriginalImages = new List<OriginalImage>();
-            _OriginalImages = new UploadImageQueue();
+            listViewData.Timer = this.timer;
         }
 
         private void FtpClientCtrl_StatusUpdateEvent(string Message, DStatus Status, long FullSize, long CurrentBytes, TimeSpan EstimatedTimeLeft, double Speed)
@@ -81,7 +51,7 @@ namespace FtpClient
             {
                 _isUpLoading = false;
                 if (Status == DStatus.complete)
-                    listViewData.AppendLog(new string[] { "test", "success" });
+                    listViewData.AppendLog(new string[] { _image.FileName, Status .ToString()});
             }
         }
 
@@ -120,13 +90,7 @@ namespace FtpClient
                 {
 
                     OriginalImage originalImage = new OriginalImage(new DateTime(), e.Name, e.FullPath);
-                    //if (_uploadImageQueue != null)
-                    //{
-                    //    _uploadImageQueue.Push(originalImage);
-                    //}
                     _OriginalImages.Push(originalImage);
-                    //_OriginalImages.Add(new OriginalImage(DateTime.Now, e.Name, e.FullPath));
-                    //UpLoadFile(e.FullPath, "/*.*");
                 }
             }
         }
@@ -137,26 +101,6 @@ namespace FtpClient
             {
                 string RemoteFile = Path.GetFileName(fileFullName);
                 ftpCtl1.Put(fileFullName, RemoteFile);
-            }
-        }
-
-        private void UpLoadFile(string localPath, string remotePath, bool remove = false)
-        {
-            if (_session != null && _session.Opened)
-            {
-                TransferOptions transferOptions = new TransferOptions();
-                transferOptions.TransferMode = TransferMode.Binary;
-                TransferOperationResult transferResult;
-                //remotePath /*.*
-                transferResult = _session.PutFiles(localPath, remotePath, remove, transferOptions);
-
-                transferResult.Check();
-
-                // Print results
-                foreach (TransferEventArgs transfer in transferResult.Transfers)
-                {
-                    Console.WriteLine("Upload of {0} succeeded", transfer.FileName);
-                }
             }
         }
 
@@ -261,17 +205,6 @@ namespace FtpClient
 
         private void FtpClient_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
         {
-            //if (_session != null && _session.Opened)
-            //{
-            //    try
-            //    {
-            //        _session.Close();
-            //        _session.Dispose();
-            //    }
-            //    catch (Exception exception)
-            //    {
-            //    }
-            //}
             if (ftpCtl1 != null && ftpCtl1.IsConnected)
             {
                 //ftpCtl1.Abort();
@@ -286,8 +219,8 @@ namespace FtpClient
             //then upload
             if (!this._isUpLoading && this._OriginalImages != null && this._OriginalImages.Count > 0)
             {
-                var images = _OriginalImages.Pop();
-                Upload(images.FilePath);
+                _image = _OriginalImages.Pop();
+                Upload(_image.FilePath);
             }
             //2.have original image && uploading
             //then do nothing
