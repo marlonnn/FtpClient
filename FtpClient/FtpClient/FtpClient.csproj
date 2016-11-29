@@ -82,11 +82,11 @@
   <ItemGroup>
     <Compile Include="Binary\Original.cs" />
     <Compile Include="Binary\OriginalImage.cs" />
-    <Compile Include="FtpClient.cs">
+    <Compile Include="RichFtpClient.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FtpClient.Designer.cs">
-      <DependentUpon>FtpClient.cs</DependentUpon>
+    <Compile Include="RichFtpClient.Designer.cs">
+      <DependentUpon>RichFtpClient.cs</DependentUpon>
     </Compile>
     <Compile Include="FtpClientForm.cs">
       <SubType>Form</SubType>
@@ -114,8 +114,8 @@
       <DependentUpon>WatchDogForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WatchDogSettings.cs" />
-    <EmbeddedResource Include="FtpClient.resx">
-      <DependentUpon>FtpClient.cs</DependentUpon>
+    <EmbeddedResource Include="RichFtpClient.resx">
+      <DependentUpon>RichFtpClient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FtpClientForm.resx">
       <DependentUpon>FtpClientForm.cs</DependentUpon>

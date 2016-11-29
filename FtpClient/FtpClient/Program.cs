@@ -21,7 +21,7 @@ namespace FtpClient
                 if (login.ShowDialog() == DialogResult.OK)
                 {
                     login.Dispose();
-                    FtpClient ftpClient = new FtpClient(login.Session);
+                    RichFtpClient ftpClient = new RichFtpClient(login.Session);
                     Application.Run(ftpClient);
                 }
                 else

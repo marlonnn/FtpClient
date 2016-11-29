@@ -13,7 +13,7 @@ using WinSCP;
 
 namespace FtpClient
 {
-    public partial class FtpClient : Form
+    public partial class RichFtpClient : Form
     {
         private Session _session;
 
@@ -22,12 +22,12 @@ namespace FtpClient
         private System.IO.FileSystemWatcher _Watcher;
         private bool _bIsWatching;
 
-        public FtpClient()
+        public RichFtpClient()
         {
             InitializeComponent();
         }
 
-        public FtpClient(Session session)
+        public RichFtpClient(Session session)
         {
             InitializeComponent();
             this._session = session;

@@ -1,6 +1,6 @@
 ﻿namespace FtpClient
 {
-    partial class FtpClient
+    partial class RichFtpClient
     {
         /// <summary>
         /// Required designer variable.
@@ -255,7 +255,7 @@
         private System.Windows.Forms.OpenFileDialog dlgOpenFile;
         private System.Windows.Forms.FolderBrowserDialog dlgOpenDir;
         private System.Windows.Forms.SaveFileDialog dlgSaveFile;
-        private LogListView listViewData;
+        private FtpClient.LogListView listViewData;
         private System.Windows.Forms.ColumnHeader columnHeaderName;
         private System.Windows.Forms.ColumnHeader columnHeaderStatus;
     }
