@@ -13,12 +13,9 @@ using WinSCP;
 
 namespace FtpClient
 {
-    public partial class Login : Form
+    public partial class Login : GenericSaveForm.GenericSavForm
     {
         private FtpSettings _ftpSettings;
-        private Session _ftpSession;
-
-        public Session Session { get { return this._ftpSession; } }
 
         public FTPClientCtl _ftpClientCtrl;
         public Login()
@@ -39,6 +36,18 @@ namespace FtpClient
             txtBoxPort.Text = _ftpSettings.Port.ToString();
             //textBox_local_folder.Text = _ftpSettings.LocalFolder;
             txtBoxPassword.Text = _ftpSettings.Password;
+            //checkBox_bin.Checked = _ftpSettings.Binary;
+            //checkBox_Passive.Checked = _ftpSettings.Passive;
+            //textBox_loc_file.Text = _ftpSettings.LocalFile;
+        }
+
+        private void SaveSettings()
+        {
+            _ftpSettings.ServerIP = txtBoxServerIp.Text;
+            _ftpSettings.UserID = txtBoxUserId.Text;
+            _ftpSettings.Port = int.Parse(txtBoxPort.Text);
+            //textBox_local_folder.Text = _ftpSettings.LocalFolder;
+            _ftpSettings.Password = txtBoxPassword.Text;
             //checkBox_bin.Checked = _ftpSettings.Binary;
             //checkBox_Passive.Checked = _ftpSettings.Passive;
             //textBox_loc_file.Text = _ftpSettings.LocalFile;
@@ -77,27 +86,6 @@ namespace FtpClient
             }
         }
 
-        private bool CreateFtpSession()
-        {
-            try
-            {
-                // Setup session options
-                SessionOptions sessionOptions = new SessionOptions();
-                sessionOptions.Protocol = Protocol.Ftp;
-                sessionOptions.HostName = txtBoxServerIp.Text;
-                sessionOptions.UserName = txtBoxUserId.Text;
-                sessionOptions.Password = txtBoxPassword.Text;
-                _ftpSession = new Session();
-                _ftpSession.Open(sessionOptions);
-                return true;
-            }
-            catch (Exception e)
-            {
-                _ftpSession.Dispose();
-                return false;
-            }
-        }
-
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -105,7 +93,15 @@ namespace FtpClient
 
         private void Login_Load(object sender, EventArgs e)
         {
-            //ApplySettings();
+            _ftpSettings = (FtpSettings)GetSettingsObject(typeof(FtpSettings));
+            ApplySettings();
         }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            SaveSettings();
+            base.OnFormClosing(e);
+        }
+
     }
 }

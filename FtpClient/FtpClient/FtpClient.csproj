@@ -136,6 +136,9 @@
     <EmbeddedResource Include="WatchDogForm.resx">
       <DependentUpon>WatchDogForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="FTP Client简单使用说明.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

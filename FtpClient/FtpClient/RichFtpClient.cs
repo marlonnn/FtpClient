@@ -26,7 +26,7 @@ namespace FtpClient
 
         private bool _isUpLoading;
 
-        private Login login;
+        private Login loginForm;
 
         private OriginalImage _image;
 
@@ -34,10 +34,16 @@ namespace FtpClient
         {
             InitializeComponent();
             _stringBuilder = new StringBuilder();
-            _bDirty = false;
-            _bIsWatching = false;
+            //_bDirty = false;
+            //_bIsWatching = false;
             _OriginalImages = new UploadImageQueue();
             listViewData.Timer = this.timer;
+            EnableStartWatch(false);
+        }
+
+        private void EnableStartWatch(bool isEnable)
+        {
+            this.btnWatchFile.Enabled = isEnable;
         }
 
         private void FtpClientCtrl_StatusUpdateEvent(string Message, DStatus Status, long FullSize, long CurrentBytes, TimeSpan EstimatedTimeLeft, double Speed)
@@ -231,11 +237,19 @@ namespace FtpClient
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Login login = SpringHelper.GetObject<Login>("loginForm");
-            login = new Login(this.ftpCtl1);
-            if (login.ShowDialog() == DialogResult.OK)
+            if (!this.ftpCtl1.IsConnected)
             {
-
+                loginForm = new Login(this.ftpCtl1);
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    EnableStartWatch(true);
+                }
+                else
+                {
+                    EnableStartWatch(false);
+                }
             }
+
         }
     }
 }

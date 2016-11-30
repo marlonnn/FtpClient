@@ -12,7 +12,8 @@
     <property name="_uploadImageQueue" ref="_uploadImageQueue"/>
   </object>
 
-  <object name="loginForm" type="FtpClient.Login, FtpClient">
-    <property name="_ftpSettings" ref="_ftpSettings"/>
+  <object name="richFtpClient" type="FtpClient.RichFtpClient, FtpClient">
+    <property name="_bDirty" value="false"/>
+    <property name="_bIsWatching" value="false"/>
   </object>
 </objects>

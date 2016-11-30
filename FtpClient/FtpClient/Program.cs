@@ -16,7 +16,7 @@ namespace FtpClient
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                //FtpClientForm ftpClientForm = SpringHelper.GetObject<FtpClientForm>("ftpClientForm");
+                RichFtpClient richFtpClient = SpringHelper.GetObject<RichFtpClient>("richFtpClient");
                 //Application.Run(ftpClientForm);
                 //Login login = SpringHelper.GetObject<Login>("loginForm");
                 //if (login.ShowDialog() == DialogResult.OK)
@@ -30,8 +30,8 @@ namespace FtpClient
                 //    login.Dispose();
                 //}
 
-                RichFtpClient ftpClient = new RichFtpClient();
-                Application.Run(ftpClient);
+                //RichFtpClient ftpClient = new RichFtpClient();
+                Application.Run(richFtpClient);
             }
             catch (Exception ee)
             {
