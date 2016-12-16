@@ -17,7 +17,6 @@ namespace FtpClient
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 RichFtpClient richFtpClient = SpringHelper.GetObject<RichFtpClient>("richFtpClient");
-                //Application.Run(ftpClientForm);
                 //Login login = SpringHelper.GetObject<Login>("loginForm");
                 //if (login.ShowDialog() == DialogResult.OK)
                 //{

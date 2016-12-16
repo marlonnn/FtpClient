@@ -4,6 +4,7 @@ using FtpClient.Queue;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WatchDogLib;
 using WinSCP;
 
 namespace FtpClient
@@ -30,6 +32,8 @@ namespace FtpClient
 
         private OriginalImage _image;
 
+        private WatchdogWatcher watchdogWatcher;
+
         public RichFtpClient()
         {
             InitializeComponent();
@@ -39,6 +43,28 @@ namespace FtpClient
             _OriginalImages = new UploadImageQueue();
             listViewData.Timer = this.timer;
             EnableStartWatch(false);
+            InitializeWatchDog();
+        }
+
+        private void InitializeWatchDog()
+        {
+            int watchDogMonitorInterval = 5000;
+
+            try
+            {
+                watchDogMonitorInterval = Convert.ToInt32(ConfigurationManager.AppSettings["WatchDogMonitorInterval"]);
+                if (watchDogMonitorInterval != 0)
+                {
+                    watchDogMonitorInterval = 5000;
+                }
+            }
+            catch (Exception ex)
+            {
+                watchDogMonitorInterval = 5000;
+                MessageBox.Show("Exception WatchdogMonitor1: " + ex.StackTrace);
+            }
+
+            watchdogWatcher = new WatchdogWatcher("WatchDog", "WatchDog.exe", watchDogMonitorInterval);
         }
 
         private void EnableStartWatch(bool isEnable)
@@ -216,6 +242,7 @@ namespace FtpClient
                 //ftpCtl1.Abort();
                 ftpCtl1.Dispose();
             }
+            watchdogWatcher.Stop();
         }
 
         private void Timer_Tick(object sender, EventArgs e)

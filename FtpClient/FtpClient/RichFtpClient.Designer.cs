@@ -61,6 +61,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ftpCtl1 = new DotNetRemoting.FTPClientCtl();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -70,7 +71,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(8, 155);
+            this.label3.Location = new System.Drawing.Point(8, 168);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(125, 13);
             this.label3.TabIndex = 22;
@@ -82,17 +83,16 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lstNotification.FormattingEnabled = true;
-            this.lstNotification.ItemHeight = 12;
-            this.lstNotification.Location = new System.Drawing.Point(8, 170);
+            this.lstNotification.Location = new System.Drawing.Point(8, 184);
             this.lstNotification.Name = "lstNotification";
-            this.lstNotification.Size = new System.Drawing.Size(477, 100);
+            this.lstNotification.Size = new System.Drawing.Size(477, 108);
             this.lstNotification.TabIndex = 21;
             // 
             // lblFile
             // 
             this.lblFile.AutoSize = true;
             this.lblFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFile.Location = new System.Drawing.Point(8, 82);
+            this.lblFile.Location = new System.Drawing.Point(8, 89);
             this.lblFile.Name = "lblFile";
             this.lblFile.Size = new System.Drawing.Size(124, 13);
             this.lblFile.TabIndex = 19;
@@ -100,9 +100,9 @@
             // 
             // txtFile
             // 
-            this.txtFile.Location = new System.Drawing.Point(9, 99);
+            this.txtFile.Location = new System.Drawing.Point(9, 107);
             this.txtFile.Name = "txtFile";
-            this.txtFile.Size = new System.Drawing.Size(268, 21);
+            this.txtFile.Size = new System.Drawing.Size(268, 20);
             this.txtFile.TabIndex = 18;
             // 
             // btnWatchFile
@@ -110,9 +110,9 @@
             this.btnWatchFile.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btnWatchFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnWatchFile.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnWatchFile.Location = new System.Drawing.Point(8, 123);
+            this.btnWatchFile.Location = new System.Drawing.Point(8, 133);
             this.btnWatchFile.Name = "btnWatchFile";
-            this.btnWatchFile.Size = new System.Drawing.Size(119, 21);
+            this.btnWatchFile.Size = new System.Drawing.Size(119, 23);
             this.btnWatchFile.TabIndex = 20;
             this.btnWatchFile.Text = "Start Watching";
             this.btnWatchFile.UseVisualStyleBackColor = false;
@@ -122,9 +122,9 @@
             // 
             this.btnBrowseFile.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btnBrowseFile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnBrowseFile.Location = new System.Drawing.Point(283, 96);
+            this.btnBrowseFile.Location = new System.Drawing.Point(283, 104);
             this.btnBrowseFile.Name = "btnBrowseFile";
-            this.btnBrowseFile.Size = new System.Drawing.Size(75, 21);
+            this.btnBrowseFile.Size = new System.Drawing.Size(75, 23);
             this.btnBrowseFile.TabIndex = 24;
             this.btnBrowseFile.Text = "Browse";
             this.btnBrowseFile.UseVisualStyleBackColor = false;
@@ -134,9 +134,9 @@
             // 
             this.btnLog.BackColor = System.Drawing.SystemColors.Highlight;
             this.btnLog.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnLog.Location = new System.Drawing.Point(158, 123);
+            this.btnLog.Location = new System.Drawing.Point(158, 133);
             this.btnLog.Name = "btnLog";
-            this.btnLog.Size = new System.Drawing.Size(119, 21);
+            this.btnLog.Size = new System.Drawing.Size(119, 23);
             this.btnLog.TabIndex = 25;
             this.btnLog.Text = "Dump To Log";
             this.btnLog.UseVisualStyleBackColor = false;
@@ -151,9 +151,9 @@
             this.groupBox1.Controls.Add(this.chkSubFolder);
             this.groupBox1.Controls.Add(this.rdbDir);
             this.groupBox1.Controls.Add(this.rdbFile);
-            this.groupBox1.Location = new System.Drawing.Point(12, 11);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(334, 63);
+            this.groupBox1.Size = new System.Drawing.Size(334, 68);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mode";
@@ -162,9 +162,9 @@
             // 
             this.chkSubFolder.AutoSize = true;
             this.chkSubFolder.Enabled = false;
-            this.chkSubFolder.Location = new System.Drawing.Point(185, 42);
+            this.chkSubFolder.Location = new System.Drawing.Point(185, 46);
             this.chkSubFolder.Name = "chkSubFolder";
-            this.chkSubFolder.Size = new System.Drawing.Size(132, 16);
+            this.chkSubFolder.Size = new System.Drawing.Size(114, 17);
             this.chkSubFolder.TabIndex = 2;
             this.chkSubFolder.Text = "Include Subfolders";
             this.chkSubFolder.UseVisualStyleBackColor = true;
@@ -172,9 +172,9 @@
             // rdbDir
             // 
             this.rdbDir.AutoSize = true;
-            this.rdbDir.Location = new System.Drawing.Point(6, 39);
+            this.rdbDir.Location = new System.Drawing.Point(6, 42);
             this.rdbDir.Name = "rdbDir";
-            this.rdbDir.Size = new System.Drawing.Size(113, 16);
+            this.rdbDir.Size = new System.Drawing.Size(102, 17);
             this.rdbDir.TabIndex = 1;
             this.rdbDir.Text = "Watch Directory";
             this.rdbDir.UseVisualStyleBackColor = true;
@@ -183,9 +183,9 @@
             // 
             this.rdbFile.AutoSize = true;
             this.rdbFile.Checked = true;
-            this.rdbFile.Location = new System.Drawing.Point(6, 18);
+            this.rdbFile.Location = new System.Drawing.Point(6, 20);
             this.rdbFile.Name = "rdbFile";
-            this.rdbFile.Size = new System.Drawing.Size(83, 16);
+            this.rdbFile.Size = new System.Drawing.Size(76, 17);
             this.rdbFile.TabIndex = 0;
             this.rdbFile.TabStop = true;
             this.rdbFile.Text = "Watch File";
@@ -216,9 +216,9 @@
             this.toolStripLabelTime,
             this.toolStripLabel3,
             this.toolStripLabelSpeed});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 500);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 543);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(491, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(491, 23);
             this.statusStrip1.TabIndex = 27;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -226,56 +226,56 @@
             // 
             this.toolStripStatusLabel1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(52, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(52, 18);
             this.toolStripStatusLabel1.Text = "Status:";
             // 
             // toolStripLabelStatus
             // 
             this.toolStripLabelStatus.ForeColor = System.Drawing.Color.Blue;
             this.toolStripLabelStatus.Name = "toolStripLabelStatus";
-            this.toolStripLabelStatus.Size = new System.Drawing.Size(44, 17);
+            this.toolStripLabelStatus.Size = new System.Drawing.Size(39, 18);
             this.toolStripLabelStatus.Text = "Ready";
             // 
             // toolStripProgressBar
             // 
             this.toolStripProgressBar.Name = "toolStripProgressBar";
-            this.toolStripProgressBar.Size = new System.Drawing.Size(150, 16);
+            this.toolStripProgressBar.Size = new System.Drawing.Size(150, 17);
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(64, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(64, 18);
             this.toolStripStatusLabel2.Text = "Time Left";
             // 
             // toolStripLabelTime
             // 
             this.toolStripLabelTime.ForeColor = System.Drawing.Color.Blue;
             this.toolStripLabelTime.Name = "toolStripLabelTime";
-            this.toolStripLabelTime.Size = new System.Drawing.Size(56, 17);
+            this.toolStripLabelTime.Size = new System.Drawing.Size(49, 18);
             this.toolStripLabelTime.Text = "00:00:00";
             // 
             // toolStripLabel3
             // 
             this.toolStripLabel3.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(49, 17);
+            this.toolStripLabel3.Size = new System.Drawing.Size(49, 18);
             this.toolStripLabel3.Text = "Speed:";
             // 
             // toolStripLabelSpeed
             // 
             this.toolStripLabelSpeed.ForeColor = System.Drawing.Color.Blue;
             this.toolStripLabelSpeed.Name = "toolStripLabelSpeed";
-            this.toolStripLabelSpeed.Size = new System.Drawing.Size(15, 17);
+            this.toolStripLabelSpeed.Size = new System.Drawing.Size(13, 18);
             this.toolStripLabelSpeed.Text = "0";
             // 
             // label_mess
             // 
             this.label_mess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label_mess.AutoSize = true;
-            this.label_mess.Location = new System.Drawing.Point(74, 481);
+            this.label_mess.Location = new System.Drawing.Point(74, 521);
             this.label_mess.Name = "label_mess";
-            this.label_mess.Size = new System.Drawing.Size(35, 12);
+            this.label_mess.Size = new System.Drawing.Size(33, 13);
             this.label_mess.TabIndex = 29;
             this.label_mess.Text = "ready";
             // 
@@ -285,7 +285,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Sienna;
-            this.label6.Location = new System.Drawing.Point(5, 479);
+            this.label6.Location = new System.Drawing.Point(5, 519);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(63, 14);
             this.label6.TabIndex = 28;
@@ -304,12 +304,12 @@
             this.listViewData.GridLines = true;
             this.listViewData.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewData.HideSelection = false;
-            this.listViewData.Location = new System.Drawing.Point(8, 275);
+            this.listViewData.Location = new System.Drawing.Point(8, 298);
             this.listViewData.MaxLogRecords = 300;
             this.listViewData.MultiSelect = false;
             this.listViewData.Name = "listViewData";
             this.listViewData.ShowGroups = false;
-            this.listViewData.Size = new System.Drawing.Size(477, 196);
+            this.listViewData.Size = new System.Drawing.Size(477, 212);
             this.listViewData.TabIndex = 26;
             this.listViewData.Timer = null;
             this.listViewData.UseCompatibleStateImageBehavior = false;
@@ -331,14 +331,14 @@
             this.openToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(491, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(491, 24);
             this.menuStrip1.TabIndex = 30;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.openToolStripMenuItem.Text = "Login";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -348,23 +348,33 @@
             this.ftpCtl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ftpCtl1.ControlPort = 21;
             this.ftpCtl1.FtpToolStripProgressBar = this.toolStripProgressBar;
-            this.ftpCtl1.Location = new System.Drawing.Point(352, 37);
+            this.ftpCtl1.Location = new System.Drawing.Point(352, 40);
             this.ftpCtl1.Name = "ftpCtl1";
             this.ftpCtl1.ProgrBar = null;
             this.ftpCtl1.ProgressLabel = null;
             this.ftpCtl1.RemoteHost = null;
-            this.ftpCtl1.Size = new System.Drawing.Size(105, 16);
+            this.ftpCtl1.Size = new System.Drawing.Size(105, 17);
             this.ftpCtl1.TabIndex = 31;
             this.ftpCtl1.Timeout = 120000;
             this.ftpCtl1.TimeOut = 20000;
             this.ftpCtl1.Visible = false;
             this.ftpCtl1.StatusUpdateEvent += new DotNetRemoting.UpdateDelegate(this.FtpClientCtrl_StatusUpdateEvent);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(386, 104);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 32;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // RichFtpClient
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(491, 522);
+            this.ClientSize = new System.Drawing.Size(491, 566);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.ftpCtl1);
             this.Controls.Add(this.label_mess);
             this.Controls.Add(this.label6);
@@ -429,5 +439,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private DotNetRemoting.FTPClientCtl ftpCtl1;
+        private System.Windows.Forms.Button button1;
     }
 }
