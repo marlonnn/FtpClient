@@ -71,6 +71,34 @@ namespace DotNetRemoting
             return _Ftp.ListDirectoryDetail(Dir);
         }
 
+        public FTPFile[] GetSubFolders(string dir)
+        {
+            return _Ftp.GetSubFolders(dir);
+        }
+
+        public FTPFile[] GetFolders(string Dir)
+        {
+            return GetSubFolders(Dir);
+        }
+
+        public List<RemoteFolders> GetFolders(RemoteFolders folder, List<RemoteFolders> remoteFolders)
+        {
+            if (folder != null)
+            {
+                FTPFile[] files = GetSubFolders(folder.Name);
+                foreach (FTPFile ftpFile in files)
+                {
+                    if (ftpFile != null && ftpFile.Dir)
+                    {
+                        RemoteFolders remoteFolder = new RemoteFolders(ftpFile.Name, folder);
+                        remoteFolders.Add(remoteFolder);
+                        GetFolders(remoteFolder, remoteFolders);
+                    }
+                }
+            }
+            return remoteFolders;
+        }
+
         public string[] Dir()
         {
             return Dir(null);
@@ -160,6 +188,11 @@ namespace DotNetRemoting
         public void Quit()
         {
             _Ftp.Quit();
+        }
+
+        public void LogOut()
+        {
+            _Ftp.LogOut();
         }
 
         public void QuitImmediately()

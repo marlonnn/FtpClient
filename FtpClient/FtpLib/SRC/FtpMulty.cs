@@ -226,6 +226,11 @@ namespace DotNetRemoting
             }
         }
 
+        public void LogOut()
+        {
+            _FtpClientEx.Quit();
+        }
+
         public void QuitImmediately()
         {
             try
@@ -295,6 +300,32 @@ namespace DotNetRemoting
             }
 
             return null;
+        }
+
+        public FTPFile[] GetSubFolders()
+        {
+            try
+            {
+                FTPFile[] FtpFiles = _FtpClientEx.DirDetails();
+                return (FTPFile[])FtpFiles;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public FTPFile[] GetSubFolders(string dir)
+        {
+            try
+            {
+                FTPFile[] FtpFiles = _FtpClientEx.DirDetails(dir);
+                return (FTPFile[])FtpFiles;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public virtual string[] Dir()

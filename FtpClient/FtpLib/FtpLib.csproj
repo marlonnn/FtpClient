@@ -83,6 +83,7 @@
       <DependentUpon>HttpDownloaderCtl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoteFolders.cs" />
     <Compile Include="SRC\BaseDownloader.cs" />
     <Compile Include="SRC\FtpClientEx.cs" />
     <Compile Include="SRC\FtpMulty.cs" />

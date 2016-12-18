@@ -18,6 +18,12 @@ namespace WatchDogLib
         //private Thread watchDogManagerThread;
         private Thread heatbeatThread;
 
+        /// <summary>
+        /// 看门狗监控构造函数
+        /// </summary>
+        /// <param name="watchdogApplicationName">看门狗名</param>
+        /// <param name="watchdogExecutablePath">看门狗程序</param>
+        /// <param name="watchdogMonitoringInterval">时间间隔</param>
         public WatchdogWatcher(string watchdogApplicationName, string watchdogExecutablePath, int watchdogMonitoringInterval)
         {
             this.watchdogAppName = watchdogApplicationName;
@@ -61,6 +67,9 @@ namespace WatchDogLib
             }
         }
 
+        /// <summary>
+        /// 循环创建心跳消息
+        /// </summary>
         private void StartHeartbeatThread()
         {
             while (true)

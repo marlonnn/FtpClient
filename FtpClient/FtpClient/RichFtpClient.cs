@@ -1,4 +1,5 @@
 ﻿using DotNetRemoting;
+using EnterpriseDT.Net.Ftp;
 using FtpClient.Binary;
 using FtpClient.Queue;
 using System;
@@ -37,6 +38,7 @@ namespace FtpClient
         public RichFtpClient()
         {
             InitializeComponent();
+            this.FormClosing += FtpClient_FormClosing;
             _stringBuilder = new StringBuilder();
             //_bDirty = false;
             //_bIsWatching = false;
@@ -250,11 +252,20 @@ namespace FtpClient
             //check OriginalImage list
             //1.have original image && not upload
             //then upload
-            if (!this._isUpLoading && this._OriginalImages != null && this._OriginalImages.Count > 0)
+            if (this.ftpCtl1 != null && this.ftpCtl1.IsConnected)
             {
-                _image = _OriginalImages.Pop();
-                Upload(_image.FilePath);
+                this.ConnectedStatus.Text = "Conected";
+                if (!this._isUpLoading && this._OriginalImages != null && this._OriginalImages.Count > 0)
+                {
+                    _image = _OriginalImages.Pop();
+                    Upload(_image.FilePath);
+                }
             }
+            else
+            {
+                this.ConnectedStatus.Text = "Disconnected";
+            }
+
             //2.have original image && uploading
             //then do nothing
             //3.have no original image 
@@ -277,6 +288,42 @@ namespace FtpClient
                 }
             }
 
+        }
+
+        private void StripMenuItemLogOut_Click(object sender, EventArgs e)
+        {
+            if (this.ftpCtl1.IsConnected)
+            {
+                this.ftpCtl1.LogOut();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (this.ftpCtl1.IsConnected)
+            {
+                List<RemoteFolders> remoteFolders = new List<RemoteFolders>();
+                List<RemoteFolders> rootFolders = Folders();
+                foreach (var folder in rootFolders)
+                {
+                    var v = this.ftpCtl1.GetFolders(folder, remoteFolders);
+                }
+            }
+        }
+
+        public List<RemoteFolders> Folders()
+        {
+            List<RemoteFolders> folders = new List<RemoteFolders>();
+            FTPFile[] ftpFiles = ftpCtl1.GetFolders("");
+            foreach (var file in ftpFiles)
+            {
+                if (file != null && file.Dir)
+                {
+                    RemoteFolders remoteFolder = new RemoteFolders(file.Name, null);
+                    folders.Add(remoteFolder);
+                }
+            }
+            return folders;
         }
     }
 }

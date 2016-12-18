@@ -18,6 +18,12 @@ namespace WatchDogLib
 
         private Thread watchDogThread;
 
+        /// <summary>
+        /// 看门狗构造函数
+        /// </summary>
+        /// <param name="monitoredApplicationName">被监控软件名</param>
+        /// <param name="watchdogAppliationName">看门狗程序名</param>
+        /// <param name="monitorInterval">监控时间间隔</param>
         public ApplicationWatcher(string monitoredApplicationName, string watchdogAppliationName, int monitorInterval)
         {
             this.monitoredAppName = monitoredApplicationName;
@@ -41,6 +47,9 @@ namespace WatchDogLib
             }
         }
 
+        /// <summary>
+        /// 监控软件是否存在以及心跳消息
+        /// </summary>
         private void StartAppMonitoring()
         {
             while (true)
