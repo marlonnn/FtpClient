@@ -15,6 +15,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using EnterpriseDT.Net.Ftp;
+using System.IO;
 
 namespace DotNetRemoting
 {
@@ -68,7 +69,7 @@ namespace DotNetRemoting
 
         public FTPFile[] GetDetails(string Dir)
         {
-            return _Ftp.ListDirectoryDetail(Dir);
+            return _Ftp.ListDirectoryDetail(Dir, true);
         }
 
         public FTPFile[] GetSubFolders(string dir)
@@ -160,9 +161,19 @@ namespace DotNetRemoting
             _Ftp.ChDir(dir);
         }
 
+        public void ChDir(string dir, bool noStatusBar = true)
+        {
+            _Ftp.ChDir(dir, true);
+        }
+
         public void MkDir(string dir)
         {
             _Ftp.MkDir(dir);
+        }
+
+        public void MkDir(string dir, bool noStatusBar = true)
+        {
+            _Ftp.MkDir(dir, true);
         }
 
         public string Pwd()

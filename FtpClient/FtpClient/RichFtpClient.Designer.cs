@@ -39,6 +39,7 @@
             this.tmrEditNotify = new System.Windows.Forms.Timer(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkSubFolder = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.rdbDir = new System.Windows.Forms.RadioButton();
             this.rdbFile = new System.Windows.Forms.RadioButton();
             this.dlgOpenFile = new System.Windows.Forms.OpenFileDialog();
@@ -58,7 +59,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logOffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ConnectedStatus = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -177,6 +177,15 @@
             this.chkSubFolder.UseVisualStyleBackColor = true;
             this.chkSubFolder.CheckedChanged += ChkSubFolder_CheckedChanged;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(310, 38);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(209, 20);
+            this.comboBox1.TabIndex = 33;
+            this.comboBox1.Visible = false;
+            // 
             // rdbDir
             // 
             this.rdbDir.AutoSize = true;
@@ -242,7 +251,7 @@
             // 
             this.toolStripLabelStatus.ForeColor = System.Drawing.Color.Blue;
             this.toolStripLabelStatus.Name = "toolStripLabelStatus";
-            this.toolStripLabelStatus.Size = new System.Drawing.Size(44, 17);
+            this.toolStripLabelStatus.Size = new System.Drawing.Size(39, 17);
             this.toolStripLabelStatus.Text = "Ready";
             // 
             // toolStripProgressBar
@@ -261,7 +270,7 @@
             // 
             this.toolStripLabelTime.ForeColor = System.Drawing.Color.Blue;
             this.toolStripLabelTime.Name = "toolStripLabelTime";
-            this.toolStripLabelTime.Size = new System.Drawing.Size(56, 17);
+            this.toolStripLabelTime.Size = new System.Drawing.Size(49, 17);
             this.toolStripLabelTime.Text = "00:00:00";
             // 
             // toolStripLabel3
@@ -275,7 +284,7 @@
             // 
             this.toolStripLabelSpeed.ForeColor = System.Drawing.Color.Blue;
             this.toolStripLabelSpeed.Name = "toolStripLabelSpeed";
-            this.toolStripLabelSpeed.Size = new System.Drawing.Size(15, 17);
+            this.toolStripLabelSpeed.Size = new System.Drawing.Size(13, 17);
             this.toolStripLabelSpeed.Text = "0";
             // 
             // label_mess
@@ -310,32 +319,23 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(686, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(686, 24);
             this.menuStrip1.TabIndex = 30;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.openToolStripMenuItem.Text = "Login";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // logOffToolStripMenuItem
             // 
             this.logOffToolStripMenuItem.Name = "logOffToolStripMenuItem";
-            this.logOffToolStripMenuItem.Size = new System.Drawing.Size(63, 21);
+            this.logOffToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.logOffToolStripMenuItem.Text = "LogOut";
             this.logOffToolStripMenuItem.Click += new System.EventHandler(this.StripMenuItemLogOut_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(310, 38);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(209, 20);
-            this.comboBox1.TabIndex = 33;
-            this.comboBox1.Visible = false;
             // 
             // label1
             // 

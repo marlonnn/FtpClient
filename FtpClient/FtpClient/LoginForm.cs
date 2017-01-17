@@ -27,6 +27,7 @@ namespace FtpClient
         {
             InitializeComponent();
             this._ftpClientCtrl = FTPClientCtrl;
+            this._ftpClientCtrl.FtpToolStripProgressBar = this.toolStripProgressBar;
         }
 
         private void ApplySettings()
