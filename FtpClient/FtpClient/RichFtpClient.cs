@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WatchDogLib;
@@ -34,6 +35,8 @@ namespace FtpClient
         private OriginalImage _image;
 
         private WatchdogWatcher watchdogWatcher;
+
+        private string _ftpFolder;
 
         public RichFtpClient()
         {
@@ -258,6 +261,7 @@ namespace FtpClient
                 if (!this._isUpLoading && this._OriginalImages != null && this._OriginalImages.Count > 0)
                 {
                     _image = _OriginalImages.Pop();
+                    CheckFTPFolder();
                     Upload(_image.FilePath);
                 }
             }
@@ -281,6 +285,7 @@ namespace FtpClient
                 if (loginForm.ShowDialog() == DialogResult.OK)
                 {
                     EnableStartWatch(true);
+                    this.ftpCtl1.FtpToolStripProgressBar = this.toolStripProgressBar;
                 }
                 else
                 {
@@ -298,32 +303,60 @@ namespace FtpClient
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void CheckFTPFolder()
         {
-            if (this.ftpCtl1.IsConnected)
+            try
             {
-                List<RemoteFolders> remoteFolders = new List<RemoteFolders>();
-                List<RemoteFolders> rootFolders = Folders();
-                foreach (var folder in rootFolders)
+                string[] splitFolders = _ftpFolder.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+                string currentFolder = "/";
+                for (int i = 0; i <= splitFolders.Length - 1; i++)
                 {
-                    var v = this.ftpCtl1.GetFolders(folder, remoteFolders);
+                    currentFolder += splitFolders[i];
+                    if (!HaveFolder(currentFolder))
+                    {
+                        this.ftpCtl1.MkDir(currentFolder, true);
+                    }
+                    currentFolder += "/";
                 }
+                this.ftpCtl1.ChDir(_ftpFolder, true);
+            }
+            catch (Exception ee)
+            {
             }
         }
 
-        public List<RemoteFolders> Folders()
+        public bool HaveFolder(string dir)
         {
-            List<RemoteFolders> folders = new List<RemoteFolders>();
-            FTPFile[] ftpFiles = ftpCtl1.GetFolders("");
-            foreach (var file in ftpFiles)
+            bool haveFolder = false;
+            string parentFolder = Path.GetDirectoryName(dir).Replace("\\", "/");
+
+            var files = this.ftpCtl1.GetDetails(parentFolder);
+            string[] splitDirs = dir.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+            string fileFolder = splitDirs[splitDirs.Length - 1];
+            if (files != null)
             {
-                if (file != null && file.Dir)
+                if (files.Count() == 0)
                 {
-                    RemoteFolders remoteFolder = new RemoteFolders(file.Name, null);
-                    folders.Add(remoteFolder);
+                    haveFolder = false;
+                }
+                else
+                {
+                    foreach (var file in files)
+                    {
+                        var filePath = file.Path.Replace("\\", "/");
+                        if (file.Dir && filePath == dir)
+                        {
+                            haveFolder = true;
+                        }
+                    }
                 }
             }
-            return folders;
+            else
+            {
+                haveFolder = false;
+            }
+            return haveFolder;
         }
+
     }
 }

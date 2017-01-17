@@ -142,6 +142,11 @@ namespace DotNetRemoting
             }
         }
 
+        public void ChDir(string dir, bool noStatusBar = true)
+        {
+            _FtpClientEx.ChDir(dir);
+        }
+
         public string Pwd()
         {
             try
@@ -261,6 +266,11 @@ namespace DotNetRemoting
             }
         }
 
+        public void MkDir(string dir, bool noStatusBar = true)
+        {
+            _FtpClientEx.MkDir(dir);
+        }
+
         public bool Exists(string remoteFile)
         {
             try
@@ -300,6 +310,11 @@ namespace DotNetRemoting
             }
 
             return null;
+        }
+
+        public FTPFile[] ListDirectoryDetail(string dirname, bool list = true)
+        {
+            return _FtpClientEx.DirDetails(dirname);
         }
 
         public FTPFile[] GetSubFolders()

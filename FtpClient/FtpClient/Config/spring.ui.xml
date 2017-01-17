@@ -15,5 +15,6 @@
   <object name="richFtpClient" type="FtpClient.RichFtpClient, FtpClient">
     <property name="_bDirty" value="false"/>
     <property name="_bIsWatching" value="false"/>
+    <property name="_ftpFolder" value="/test/data/1/3"/>
   </object>
 </objects>
