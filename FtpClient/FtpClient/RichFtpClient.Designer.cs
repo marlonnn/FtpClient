@@ -168,13 +168,14 @@
             // chkSubFolder
             // 
             this.chkSubFolder.AutoSize = true;
-            this.chkSubFolder.Enabled = false;
+            this.chkSubFolder.Enabled = true;
             this.chkSubFolder.Location = new System.Drawing.Point(216, 42);
             this.chkSubFolder.Name = "chkSubFolder";
             this.chkSubFolder.Size = new System.Drawing.Size(94, 16);
             this.chkSubFolder.TabIndex = 2;
             this.chkSubFolder.Text = "Subfolders";
             this.chkSubFolder.UseVisualStyleBackColor = true;
+            this.chkSubFolder.CheckedChanged += ChkSubFolder_CheckedChanged;
             // 
             // rdbDir
             // 
@@ -286,6 +287,7 @@
             this.label_mess.Size = new System.Drawing.Size(40, 12);
             this.label_mess.TabIndex = 29;
             this.label_mess.Text = "ready";
+            this.label_mess.Visible = false;
             // 
             // label6
             // 
@@ -298,6 +300,7 @@
             this.label6.Size = new System.Drawing.Size(63, 14);
             this.label6.TabIndex = 28;
             this.label6.Text = "Message:";
+            label6.Visible = false;
             // 
             // menuStrip1
             // 

@@ -171,6 +171,21 @@ namespace FtpClient
             }
         }
 
+        private void ChkSubFolder_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (chkSubFolder.Checked)
+            {
+                if (_Watcher != null)
+                    _Watcher.IncludeSubdirectories = true;
+            }
+            else
+            {
+                if (_Watcher != null)
+                    _Watcher.IncludeSubdirectories = false;
+            }
+        }
+
+
         private void btnWatchFile_Click(object sender, EventArgs e)
         {
             if (_bIsWatching)
