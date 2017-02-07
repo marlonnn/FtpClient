@@ -21,36 +21,39 @@ namespace FtpClient
 {
     public partial class RichFtpClient : Form
     {
-        private StringBuilder _stringBuilder;
-        private bool _bDirty;
-        private System.IO.FileSystemWatcher _Watcher;
-        private bool _bIsWatching;
+        private StringBuilder stringBuilder;
+        private bool bDirty;
+        private System.IO.FileSystemWatcher watcher;
+        private bool bIsWatching;
 
-        private UploadImageQueue _OriginalImages;
+        private UploadImageQueue originalImages;
 
-        private bool _isUpLoading;
+        private bool isUpLoading;
 
         private Login loginForm;
 
-        private OriginalImage _image;
+        private OriginalImage image;
 
         private WatchdogWatcher watchdogWatcher;
 
-        private string _ftpFolder;
+        private string ftpFolder;
 
         public RichFtpClient()
         {
             InitializeComponent();
             this.FormClosing += FtpClient_FormClosing;
-            _stringBuilder = new StringBuilder();
-            //_bDirty = false;
-            //_bIsWatching = false;
-            _OriginalImages = new UploadImageQueue();
+            stringBuilder = new StringBuilder();
+            //bDirty = false;
+            //bIsWatching = false;
+            originalImages = new UploadImageQueue();
             listViewData.Timer = this.timer;
             EnableStartWatch(false);
             InitializeWatchDog();
         }
 
+        /// <summary>
+        /// 初始化看门狗
+        /// </summary>
         private void InitializeWatchDog()
         {
             int watchDogMonitorInterval = 5000;
@@ -77,18 +80,27 @@ namespace FtpClient
             this.btnWatchFile.Enabled = isEnable;
         }
 
+        /// <summary>
+        /// 更新上传进度条
+        /// </summary>
+        /// <param name="Message"></param>
+        /// <param name="Status"></param>
+        /// <param name="FullSize"></param>
+        /// <param name="CurrentBytes"></param>
+        /// <param name="EstimatedTimeLeft"></param>
+        /// <param name="Speed"></param>
         private void FtpClientCtrl_StatusUpdateEvent(string Message, DStatus Status, long FullSize, long CurrentBytes, TimeSpan EstimatedTimeLeft, double Speed)
         {
             toolStripLabelStatus.Text = Status.ToString();
             label_mess.Text = Message;
             toolStripLabelTime.Text = BaseDownloader.TimeSpanToString(EstimatedTimeLeft);
             toolStripLabelSpeed.Text = Speed.ToString("F1") + " Kb/s";
-            _isUpLoading = true;
+            isUpLoading = true;
             if (Status == DStatus.complete || Status == DStatus.error)
             {
-                _isUpLoading = false;
+                isUpLoading = false;
                 if (Status == DStatus.complete)
-                    listViewData.AppendLog(new string[] { _image.FileName, Status .ToString()});
+                    listViewData.AppendLog(new string[] { image.FileName, Status .ToString()});
             }
         }
 
@@ -112,26 +124,35 @@ namespace FtpClient
             }
         }
 
+        /// <summary>
+        /// 监控文件夹中是否穿件新图片
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
-            if (!_bDirty)
+            if (!bDirty)
             {
-                _stringBuilder.Remove(0, _stringBuilder.Length);
-                _stringBuilder.Append(e.FullPath);
-                _stringBuilder.Append(" ");
-                _stringBuilder.Append(e.ChangeType.ToString());
-                _stringBuilder.Append("    ");
-                _stringBuilder.Append(DateTime.Now.ToString());
-                _bDirty = true;
+                stringBuilder.Remove(0, stringBuilder.Length);
+                stringBuilder.Append(e.FullPath);
+                stringBuilder.Append(" ");
+                stringBuilder.Append(e.ChangeType.ToString());
+                stringBuilder.Append("    ");
+                stringBuilder.Append(DateTime.Now.ToString());
+                bDirty = true;
                 if (e.ChangeType == WatcherChangeTypes.Created)
                 {
 
                     OriginalImage originalImage = new OriginalImage(new DateTime(), e.Name, e.FullPath);
-                    _OriginalImages.Push(originalImage);
+                    originalImages.Push(originalImage);
                 }
             }
         }
 
+        /// <summary>
+        /// 上传图片
+        /// </summary>
+        /// <param name="fileFullName"></param>
         private void Upload(string fileFullName)
         {
             if (ftpCtl1 != null && ftpCtl1.IsConnected)
@@ -143,34 +164,34 @@ namespace FtpClient
 
         private void OnRenamed(object sender, RenamedEventArgs e)
         {
-            if (!_bDirty)
+            if (!bDirty)
             {
-                _stringBuilder.Remove(0, _stringBuilder.Length);
-                _stringBuilder.Append(e.OldFullPath);
-                _stringBuilder.Append(" ");
-                _stringBuilder.Append(e.ChangeType.ToString());
-                _stringBuilder.Append(" ");
-                _stringBuilder.Append("to ");
-                _stringBuilder.Append(e.Name);
-                _stringBuilder.Append("    ");
-                _stringBuilder.Append(DateTime.Now.ToString());
-                _bDirty = true;
+                stringBuilder.Remove(0, stringBuilder.Length);
+                stringBuilder.Append(e.OldFullPath);
+                stringBuilder.Append(" ");
+                stringBuilder.Append(e.ChangeType.ToString());
+                stringBuilder.Append(" ");
+                stringBuilder.Append("to ");
+                stringBuilder.Append(e.Name);
+                stringBuilder.Append("    ");
+                stringBuilder.Append(DateTime.Now.ToString());
+                bDirty = true;
                 if (rdbFile.Checked)
                 {
-                    _Watcher.Filter = e.Name;
-                    _Watcher.Path = e.FullPath.Substring(0, e.FullPath.Length - _Watcher.Filter.Length);
+                    watcher.Filter = e.Name;
+                    watcher.Path = e.FullPath.Substring(0, e.FullPath.Length - watcher.Filter.Length);
                 }
             }
         }
 
         private void tmrEditNotify_Tick(object sender, EventArgs e)
         {
-            if (_bDirty)
+            if (bDirty)
             {
                 lstNotification.BeginUpdate();
-                lstNotification.Items.Add(this._stringBuilder.ToString());
+                lstNotification.Items.Add(this.stringBuilder.ToString());
                 lstNotification.EndUpdate();
-                _bDirty = false;
+                bDirty = false;
             }
         }
 
@@ -178,58 +199,58 @@ namespace FtpClient
         {
             if (chkSubFolder.Checked)
             {
-                if (_Watcher != null)
-                    _Watcher.IncludeSubdirectories = true;
+                if (watcher != null)
+                    watcher.IncludeSubdirectories = true;
             }
             else
             {
-                if (_Watcher != null)
-                    _Watcher.IncludeSubdirectories = false;
+                if (watcher != null)
+                    watcher.IncludeSubdirectories = false;
             }
         }
 
 
         private void btnWatchFile_Click(object sender, EventArgs e)
         {
-            if (_bIsWatching)
+            if (bIsWatching)
             {
-                _bIsWatching = false;
-                _Watcher.EnableRaisingEvents = false;
-                _Watcher.Dispose();
+                bIsWatching = false;
+                watcher.EnableRaisingEvents = false;
+                watcher.Dispose();
                 btnWatchFile.BackColor = Color.LightSkyBlue;
                 btnWatchFile.Text = "Start Watching";
 
             }
             else
             {
-                _bIsWatching = true;
+                bIsWatching = true;
                 btnWatchFile.BackColor = Color.Red;
                 btnWatchFile.Text = "Stop Watching";
 
-                _Watcher = new System.IO.FileSystemWatcher();
+                watcher = new System.IO.FileSystemWatcher();
                 if (rdbDir.Checked)
                 {
-                    _Watcher.Filter = "*.*";
-                    _Watcher.Path = txtFile.Text + "\\";
+                    watcher.Filter = "*.*";
+                    watcher.Path = txtFile.Text + "\\";
                 }
                 else
                 {
-                    _Watcher.Filter = txtFile.Text.Substring(txtFile.Text.LastIndexOf('\\') + 1);
-                    _Watcher.Path = txtFile.Text.Substring(0, txtFile.Text.Length - _Watcher.Filter.Length);
+                    watcher.Filter = txtFile.Text.Substring(txtFile.Text.LastIndexOf('\\') + 1);
+                    watcher.Path = txtFile.Text.Substring(0, txtFile.Text.Length - watcher.Filter.Length);
                 }
 
                 if (chkSubFolder.Checked)
                 {
-                    _Watcher.IncludeSubdirectories = true;
+                    watcher.IncludeSubdirectories = true;
                 }
 
-                _Watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                                      | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-                //_Watcher.Changed += new FileSystemEventHandler(OnChanged);
-                _Watcher.Created += new FileSystemEventHandler(OnChanged);
-                //_Watcher.Deleted += new FileSystemEventHandler(OnChanged);
-                //_Watcher.Renamed += new RenamedEventHandler(OnRenamed);
-                _Watcher.EnableRaisingEvents = true;
+                //watcher.Changed += new FileSystemEventHandler(OnChanged);
+                watcher.Created += new FileSystemEventHandler(OnChanged);
+                //watcher.Deleted += new FileSystemEventHandler(OnChanged);
+                //watcher.Renamed += new RenamedEventHandler(OnRenamed);
+                watcher.EnableRaisingEvents = true;
             }
         }
 
@@ -273,11 +294,11 @@ namespace FtpClient
             if (this.ftpCtl1 != null && this.ftpCtl1.IsConnected)
             {
                 this.ConnectedStatus.Text = "Conected";
-                if (!this._isUpLoading && this._OriginalImages != null && this._OriginalImages.Count > 0)
+                if (!this.isUpLoading && this.originalImages != null && this.originalImages.Count > 0)
                 {
-                    _image = _OriginalImages.Pop();
+                    image = originalImages.Pop();
                     CheckFTPFolder();
-                    Upload(_image.FilePath);
+                    Upload(image.FilePath);
                 }
             }
             else
@@ -318,11 +339,14 @@ namespace FtpClient
             }
         }
 
+        /// <summary>
+        /// 检查FTP文件夹
+        /// </summary>
         private void CheckFTPFolder()
         {
             try
             {
-                string[] splitFolders = _ftpFolder.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] splitFolders = ftpFolder.Split(new string[] { "/" }, StringSplitOptions.RemoveEmptyEntries);
                 string currentFolder = "/";
                 for (int i = 0; i <= splitFolders.Length - 1; i++)
                 {
@@ -333,13 +357,18 @@ namespace FtpClient
                     }
                     currentFolder += "/";
                 }
-                this.ftpCtl1.ChDir(_ftpFolder, true);
+                this.ftpCtl1.ChDir(ftpFolder, true);
             }
             catch (Exception ee)
             {
             }
         }
 
+        /// <summary>
+        /// 是否存在指定的文件夹
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <returns></returns>
         public bool HaveFolder(string dir)
         {
             bool haveFolder = false;

@@ -11,10 +11,10 @@ namespace FtpClient
 {
     public partial class FtpClientForm : GenericSaveForm.GenericSavForm
     {
-        private FtpSettings _ftpSettings;
-        private WatchDogForm _watchDogForm;
+        private FtpSettings ftpSettings;
+        private WatchDogForm watchDogForm;
 
-        private UploadImageQueue _uploadImageQueue;
+        private UploadImageQueue uploadImageQueue;
 
         public FtpClientForm()
         {
@@ -24,8 +24,6 @@ namespace FtpClient
 
         private void FtpClientForm_Load(object sender, EventArgs e)
         {
-            //ApplySettings();
-            //_ftpSettings = (FtpSettings)GetSettingsObject(typeof(FtpSettings));
             ApplySettings();
             this.Focus();
         }
@@ -38,28 +36,26 @@ namespace FtpClient
 
         private void ApplySettings()
         {
-            txtBoxServerIp.Text = _ftpSettings.ServerIP;
-            txtBoxUserId.Text = _ftpSettings.UserID;
-            txtBoxPort.Text = _ftpSettings.Port.ToString();
-            //textBox_local_folder.Text = _ftpSettings.LocalFolder;
-            txtBoxPassword.Text = _ftpSettings.Password;
-            //checkBox_bin.Checked = _ftpSettings.Binary;
-            //checkBox_Passive.Checked = _ftpSettings.Passive;
-            //textBox_loc_file.Text = _ftpSettings.LocalFile;
+            txtBoxServerIp.Text = ftpSettings.ServerIP;
+            txtBoxUserId.Text = ftpSettings.UserID;
+            txtBoxPort.Text = ftpSettings.Port.ToString();
+            txtBoxPassword.Text = ftpSettings.Password;
         }
 
+        /// <summary>
+        /// 保存FTP信息
+        /// </summary>
         private void SaveSettings()
         {
-            _ftpSettings.ServerIP = txtBoxServerIp.Text;
-            _ftpSettings.UserID = txtBoxUserId.Text;
-            _ftpSettings.Port = int.Parse(txtBoxPort.Text);
-            //_ftpSettings.LocalFolder = txt.Text;
-            _ftpSettings.Password = txtBoxPassword.Text;
-            //_ftpSettings.Binary = checkBox_bin.Checked;
-            //_ftpSettings.Passive = checkBox_Passive.Checked;
-            //_ftpSettings.LocalFile = textBox_loc_file.Text;
+            ftpSettings.ServerIP = txtBoxServerIp.Text;
+            ftpSettings.UserID = txtBoxUserId.Text;
+            ftpSettings.Port = int.Parse(txtBoxPort.Text);
+            ftpSettings.Password = txtBoxPassword.Text;
         }
 
+        /// <summary>
+        /// ftp连接设置
+        /// </summary>
         private void SetCredentials()
         {
             if (!ftpCtl1.IsConnected)
@@ -106,7 +102,10 @@ namespace FtpClient
             }
         }
 
-
+        /// <summary>
+        /// 上传
+        /// </summary>
+        /// <param name="fileFullName"></param>
         private void Upload(string fileFullName)
         {
             SetCredentials();
@@ -116,16 +115,25 @@ namespace FtpClient
 
         private void btnFileBrowse_Click(object sender, EventArgs e)
         {
-            openFileDialog1.FileName = _ftpSettings.LocalFile;
+            openFileDialog1.FileName = ftpSettings.LocalFile;
             openFileDialog1.ShowDialog();
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
             textBoxLocalFile.Text = openFileDialog1.FileName;
-            _ftpSettings.LocalFile = textBoxLocalFile.Text;
+            ftpSettings.LocalFile = textBoxLocalFile.Text;
         }
 
+        /// <summary>
+        /// 更新状态栏
+        /// </summary>
+        /// <param name="Message"></param>
+        /// <param name="Status"></param>
+        /// <param name="FullSize"></param>
+        /// <param name="CurrentBytes"></param>
+        /// <param name="EstimatedTimeLeft"></param>
+        /// <param name="Speed"></param>
         private void ftpCtl1_StatusUpdateEvent(string Message, DotNetRemoting.DStatus Status, long FullSize, long CurrentBytes, TimeSpan EstimatedTimeLeft, double Speed)
         {
             toolStripLabelStatus.Text = Status.ToString();
@@ -137,7 +145,6 @@ namespace FtpClient
                 if (Status == DStatus.complete)
                     listViewData.AppendLog(new string[] { "test", "success" });
                 btnUpLoad.Text = "UpLoad";
-                //button_dnld.Text = "Download";
             }
         }
 
@@ -146,17 +153,22 @@ namespace FtpClient
             if (e.Modifiers == System.Windows.Forms.Keys.Control &&
                 e.KeyCode == System.Windows.Forms.Keys.W)
             {
-                _watchDogForm.Location = this.Location;
-                _watchDogForm.ShowDialog();
+                watchDogForm.Location = this.Location;
+                watchDogForm.ShowDialog();
             }
         }
 
+        /// <summary>
+        /// 定时器取出队列中图片并上传
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if (_uploadImageQueue != null && _uploadImageQueue.GetCount() > 0)
+            if (uploadImageQueue != null && uploadImageQueue.GetCount() > 0)
             {
                 //pop all and upload
-                List<OriginalImage> images = _uploadImageQueue.PopAll();
+                List<OriginalImage> images = uploadImageQueue.PopAll();
                 foreach (var image in images)
                 {
                     listViewData.AppendLog(new string[] { image.FileName,"uploading..."});

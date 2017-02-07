@@ -2,7 +2,7 @@
 <!--复制此文档各种Ioc定义方式到需要的地方-->
 <objects xmlns="http://www.springframework.net">
   
-  <object name="_ftpSettings" type="FtpClient.FtpSettings, FtpClient">
+  <object name="ftpSettings" type="FtpClient.FtpSettings, FtpClient">
     <!--<property name="ServerIP" value="183.131.244.174"/>-->
     <property name="ServerIP" value="127.0.0.1"/>
     <property name="LocalFolder" value=""/>

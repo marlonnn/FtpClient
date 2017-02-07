@@ -1,0 +1,8 @@
+C:\Users\zhongwen\Documents\GitHub\cii-tech\FtpClient\FtpClient\FtpLib\obj\Debug\DotNetRemoting.BaseDownloaderControl.resources
+C:\Users\zhongwen\Documents\GitHub\cii-tech\FtpClient\FtpClient\FtpLib\obj\Debug\DotNetRemoting.HttpDownloaderCtl.resources
+C:\Users\zhongwen\Documents\GitHub\cii-tech\FtpClient\FtpClient\FtpLib\obj\Debug\FtpLib.csproj.GenerateResource.Cache
+C:\Users\zhongwen\Documents\GitHub\cii-tech\FtpClient\FtpClient\FtpLib\obj\Debug\FtpLib.csprojResolveAssemblyReference.cache
+C:\Users\zhongwen\Documents\GitHub\cii-tech\FtpClient\FtpClient\FtpLib\bin\Debug\FtpLib.dll
+C:\Users\zhongwen\Documents\GitHub\cii-tech\FtpClient\FtpClient\FtpLib\bin\Debug\FtpLib.pdb
+C:\Users\zhongwen\Documents\GitHub\cii-tech\FtpClient\FtpClient\FtpLib\obj\Debug\FtpLib.dll
+C:\Users\zhongwen\Documents\GitHub\cii-tech\FtpClient\FtpClient\FtpLib\obj\Debug\FtpLib.pdb

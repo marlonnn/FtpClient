@@ -2,6 +2,9 @@
 
 namespace FtpClient
 {
+    /// <summary>
+    /// FTP相关信息类
+    /// </summary>
     [Serializable]
     public class FtpSettings
     {

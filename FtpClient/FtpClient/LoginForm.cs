@@ -13,11 +13,14 @@ using WinSCP;
 
 namespace FtpClient
 {
+    /// <summary>
+    /// 登录FTP服务器
+    /// </summary>
     public partial class Login : GenericSaveForm.GenericSavForm
     {
-        private FtpSettings _ftpSettings;
+        private FtpSettings ftpSettings;
 
-        public FTPClientCtl _ftpClientCtrl;
+        public FTPClientCtl ftpClientCtrl;
         public Login()
         {
             InitializeComponent();
@@ -26,32 +29,24 @@ namespace FtpClient
         public Login(FTPClientCtl FTPClientCtrl)
         {
             InitializeComponent();
-            this._ftpClientCtrl = FTPClientCtrl;
-            this._ftpClientCtrl.FtpToolStripProgressBar = this.toolStripProgressBar;
+            this.ftpClientCtrl = FTPClientCtrl;
+            this.ftpClientCtrl.FtpToolStripProgressBar = this.toolStripProgressBar;
         }
 
         private void ApplySettings()
         {
-            txtBoxServerIp.Text = _ftpSettings.ServerIP;
-            txtBoxUserId.Text = _ftpSettings.UserID;
-            txtBoxPort.Text = _ftpSettings.Port.ToString();
-            //textBox_local_folder.Text = _ftpSettings.LocalFolder;
-            txtBoxPassword.Text = _ftpSettings.Password;
-            //checkBox_bin.Checked = _ftpSettings.Binary;
-            //checkBox_Passive.Checked = _ftpSettings.Passive;
-            //textBox_loc_file.Text = _ftpSettings.LocalFile;
+            txtBoxServerIp.Text = ftpSettings.ServerIP;
+            txtBoxUserId.Text = ftpSettings.UserID;
+            txtBoxPort.Text = ftpSettings.Port.ToString();
+            txtBoxPassword.Text = ftpSettings.Password;
         }
 
         private void SaveSettings()
         {
-            _ftpSettings.ServerIP = txtBoxServerIp.Text;
-            _ftpSettings.UserID = txtBoxUserId.Text;
-            _ftpSettings.Port = int.Parse(txtBoxPort.Text);
-            //textBox_local_folder.Text = _ftpSettings.LocalFolder;
-            _ftpSettings.Password = txtBoxPassword.Text;
-            //checkBox_bin.Checked = _ftpSettings.Binary;
-            //checkBox_Passive.Checked = _ftpSettings.Passive;
-            //textBox_loc_file.Text = _ftpSettings.LocalFile;
+            ftpSettings.ServerIP = txtBoxServerIp.Text;
+            ftpSettings.UserID = txtBoxUserId.Text;
+            ftpSettings.Port = int.Parse(txtBoxPort.Text);
+            ftpSettings.Password = txtBoxPassword.Text;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -66,18 +61,22 @@ namespace FtpClient
             }
         }
 
+        /// <summary>
+        /// 创建FTP连接
+        /// </summary>
+        /// <returns></returns>
         private bool CreateFtpConection()
         {
             try
             {
-                _ftpClientCtrl.RemoteHost = txtBoxServerIp.Text;
+                ftpClientCtrl.RemoteHost = txtBoxServerIp.Text;
                 int Port = int.Parse(txtBoxPort.Text);
-                _ftpClientCtrl.ControlPort = Port;
-                _ftpClientCtrl.Connect();
-                if (_ftpClientCtrl.IsConnected)
+                ftpClientCtrl.ControlPort = Port;
+                ftpClientCtrl.Connect();
+                if (ftpClientCtrl.IsConnected)
                 {
-                    _ftpClientCtrl.Login(txtBoxUserId.Text, txtBoxPassword.Text);
-                    _ftpClientCtrl.SetTransferType(FTPTransferType.BINARY);
+                    ftpClientCtrl.Login(txtBoxUserId.Text, txtBoxPassword.Text);
+                    ftpClientCtrl.SetTransferType(FTPTransferType.BINARY);
                 }
                 return true;
             }
@@ -94,7 +93,7 @@ namespace FtpClient
 
         private void Login_Load(object sender, EventArgs e)
         {
-            _ftpSettings = (FtpSettings)GetSettingsObject(typeof(FtpSettings));
+            ftpSettings = (FtpSettings)GetSettingsObject(typeof(FtpSettings));
             ApplySettings();
         }
 
